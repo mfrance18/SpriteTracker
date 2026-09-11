@@ -27,7 +27,8 @@
     .ss{margin-bottom:20px}
     .sn{font-size:16px;font-weight:700;margin-bottom:6px;padding-left:2px}
     .sa{font-size:12px;color:#888;font-weight:400;margin-left:8px}
-    .vg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .vg{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+    .vg .vc{width:calc(25% - 6px)}
     .vc{background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:6px 4px 5px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;transition:border-color .15s,transform .15s;height:135px;justify-content:flex-start;overflow:hidden}
     .vc.pulse{transform:scale(1.08)}
     .vc img{width:66px;height:66px;object-fit:contain;display:block}
@@ -74,7 +75,8 @@
       #app{max-width:1080px;}
       #hdr{max-width:1080px;border-radius:0 0 22px 22px;box-shadow:0 20px 60px rgba(0,0,0,.4);}
       #content{padding:24px 20px 0;}
-      .vg{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+      .vg{gap:12px}
+      .vg .vc{width:150px}
       .bpw .vc{width:180px}
       .vc{height:150px}
       .vc img{width:76px;height:76px}
