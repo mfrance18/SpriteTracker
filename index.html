@@ -11,30 +11,30 @@
   <style>
     *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
     body{background:linear-gradient(160deg,#2d1b2e 0%,#3d1a35 40%,#1e1230 100%);min-height:100vh;font-family:-apple-system,system-ui,sans-serif;color:#fff;padding-bottom:60px}
-    #app{max-width:480px;margin:0 auto;position:relative;display:none}
+    #app{max-width:540px;margin:0 auto;position:relative;display:none}
     button{font-family:inherit}
-    #hdr{background:#1e0a22;border-bottom:2px solid rgba(244,143,177,.33);padding:14px 16px 10px;position:sticky;top:0;z-index:20;max-width:480px;margin:0 auto}
+    #hdr{background:#1e0a22;border-bottom:2px solid rgba(244,143,177,.33);padding:14px 16px 10px;position:sticky;top:0;z-index:20;max-width:540px;margin:0 auto}
     #hdr h1{text-align:center;font-size:10px;letter-spacing:4px;color:#F48FB1;text-transform:uppercase;margin-bottom:2px}
-    #hdr h2{text-align:center;font-size:20px;font-weight:900;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,#F48FB1,#CE93D8,#F06292);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    #stats{display:flex;justify-content:center;gap:6px;font-size:12px;margin-top:6px;flex-wrap:wrap}
+    #hdr h2{text-align:center;font-size:23px;font-weight:900;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,#F48FB1,#CE93D8,#F06292);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    #stats{display:flex;justify-content:center;gap:8px;font-size:14px;margin-top:6px;flex-wrap:wrap}
     #pb{background:rgba(255,255,255,.1);border-radius:10px;height:6px;margin:8px auto 0;max-width:280px}
     #pf{height:100%;border-radius:10px;background:linear-gradient(90deg,#F48FB1,#CE93D8,#F06292);transition:width .3s;width:0%}
     .fr{display:flex;gap:3px;margin-top:4px;margin-bottom:4px;flex-wrap:wrap;justify-content:center;padding:0 8px}
-    .fb{padding:2px 5px;border-radius:20px;font-size:7.5px;font-weight:700;flex-shrink:0;border:1px solid rgba(255,255,255,.15);background:transparent;color:#888;cursor:pointer;white-space:nowrap}
+    .fb{padding:4px 9px;border-radius:20px;font-size:11px;font-weight:700;flex-shrink:0;border:1px solid rgba(255,255,255,.15);background:transparent;color:#888;cursor:pointer;white-space:nowrap}
     #content{padding:16px 12px 0}
     .rh{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px}
-    .rl{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+    .rl{font-size:14px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
     .ss{margin-bottom:20px}
-    .sn{font-size:13px;font-weight:700;margin-bottom:6px;padding-left:2px}
-    .sa{font-size:10px;color:#888;font-weight:400;margin-left:8px}
-    .vg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-    .vc{background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:5px 3px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;transition:border-color .15s,transform .15s;height:115px;justify-content:flex-start;overflow:hidden}
+    .sn{font-size:16px;font-weight:700;margin-bottom:6px;padding-left:2px}
+    .sa{font-size:12px;color:#888;font-weight:400;margin-left:8px}
+    .vg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .vc{background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:6px 4px 5px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;transition:border-color .15s,transform .15s;height:135px;justify-content:flex-start;overflow:hidden}
     .vc.pulse{transform:scale(1.08)}
-    .vc img{width:56px;height:56px;object-fit:contain;display:block}
-    .vl{font-size:9px;font-weight:700;line-height:1}
-    .ck{position:absolute;top:4px;right:5px;color:#F48FB1;font-size:13px;font-weight:900;display:none}
+    .vc img{width:66px;height:66px;object-fit:contain;display:block}
+    .vl{font-size:12px;font-weight:700;line-height:1.2}
+    .ck{position:absolute;top:4px;right:5px;color:#F48FB1;font-size:16px;font-weight:900;display:none}
     .ls{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;outline:none;cursor:pointer;background:rgba(255,255,255,.15)}
-    .lv{font-size:9px;font-weight:800;text-align:center;margin-top:2px}
+    .lv{font-size:12px;font-weight:800;text-align:center;margin-top:2px}
     #dust-section{padding:12px 12px 0}
     #dust-box{background:rgba(255,255,255,.04);border:1.5px solid rgba(244,143,177,.3);border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:10px}
     #dust-icon{font-size:20px;line-height:1}
@@ -48,36 +48,36 @@
     .lr{width:100%;margin-top:4px;padding:0 2px;display:flex;flex-direction:column;gap:2px}
     .ls{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:6px;outline:none;cursor:pointer;display:block}
     .ls::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);background:var(--thumb-color,#F48FB1);cursor:pointer}
-    .lv{font-size:9px;font-weight:800;text-align:center;margin-top:1px}
-    #share-btn{position:fixed;bottom:24px;right:16px;z-index:100;background:linear-gradient(135deg,#F48FB1,#CE93D8);border:none;border-radius:50px;color:#fff;font-size:12px;font-weight:800;padding:10px 18px;cursor:pointer;box-shadow:0 4px 20px rgba(244,143,177,.5);letter-spacing:.5px;}
+    .lv{font-size:12px;font-weight:800;text-align:center;margin-top:1px}
+    #share-btn{position:fixed;bottom:24px;right:16px;z-index:100;background:linear-gradient(135deg,#F48FB1,#CE93D8);border:none;border-radius:50px;color:#fff;font-size:14px;font-weight:800;padding:12px 20px;cursor:pointer;box-shadow:0 4px 20px rgba(244,143,177,.5);letter-spacing:.5px;}
     #celebration{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center;padding:32px;}
     #celebration.active{display:flex;}
     #celebration h2{font-size:22px;font-weight:900;letter-spacing:1px;margin:0;line-height:1.3;}
-    #celebration p{font-size:13px;color:rgba(255,255,255,.6);margin:0;}
-    #celebration button{background:rgba(244,143,177,.2);border:1.5px solid #F48FB1;border-radius:20px;color:#F48FB1;font-size:13px;font-weight:700;padding:10px 28px;cursor:pointer;margin-top:8px;}
+    #celebration p{font-size:15px;color:rgba(255,255,255,.6);margin:0;}
+    #celebration button{background:rgba(244,143,177,.2);border:1.5px solid #F48FB1;border-radius:20px;color:#F48FB1;font-size:15px;font-weight:700;padding:10px 28px;cursor:pointer;margin-top:8px;}
     canvas#fireworks{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:299;}
     #share-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.85);align-items:center;justify-content:center;flex-direction:column;gap:16px;}
     #share-overlay.active{display:flex;}
     #share-canvas{max-width:92vw;max-height:75vh;border-radius:16px;}
-    #milestone-toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:150;background:#2d1b2e;border:1.5px solid rgba(244,143,177,.5);border-radius:14px;padding:10px 18px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;box-shadow:0 6px 20px rgba(0,0,0,.4);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;white-space:nowrap}
+    #milestone-toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-20px);z-index:150;background:#2d1b2e;border:1.5px solid rgba(244,143,177,.5);border-radius:14px;padding:10px 18px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;box-shadow:0 6px 20px rgba(0,0,0,.4);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;white-space:nowrap}
     #milestone-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     #share-actions{display:flex;gap:12px;}
-    #share-actions button{background:rgba(244,143,177,.2);border:1.5px solid #F48FB1;border-radius:20px;color:#F48FB1;font-size:13px;font-weight:700;padding:10px 22px;cursor:pointer;}
+    #share-actions button{background:rgba(244,143,177,.2);border:1.5px solid #F48FB1;border-radius:20px;color:#F48FB1;font-size:15px;font-weight:700;padding:10px 22px;cursor:pointer;}
     #auth-screen{display:none;position:fixed;inset:0;z-index:500;background:linear-gradient(160deg,#2d1b2e 0%,#3d1a35 40%,#1e1230 100%);align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:24px;}
-    #auth-screen input{width:240px;max-width:78vw;background:rgba(255,255,255,.06);border:1.5px solid rgba(244,143,177,.4);border-radius:20px;color:#fff;font-size:14px;padding:10px 16px;outline:none;-webkit-appearance:none;}
+    #auth-screen input{width:260px;max-width:78vw;background:rgba(255,255,255,.06);border:1.5px solid rgba(244,143,177,.4);border-radius:20px;color:#fff;font-size:16px;padding:12px 16px;outline:none;-webkit-appearance:none;}
     #auth-screen input::placeholder{color:rgba(255,255,255,.35)}
-    #auth-submit-btn{background:linear-gradient(135deg,#F48FB1,#CE93D8);border:none;border-radius:20px;color:#fff;font-weight:800;font-size:13px;padding:10px 30px;cursor:pointer;letter-spacing:.5px;}
+    #auth-submit-btn{background:linear-gradient(135deg,#F48FB1,#CE93D8);border:none;border-radius:20px;color:#fff;font-weight:800;font-size:15px;padding:12px 32px;cursor:pointer;letter-spacing:.5px;}
     #auth-submit-btn[disabled]{opacity:.6;cursor:default;}
-    #auth-toggle{color:rgba(255,255,255,.5);font-size:11px;cursor:pointer;text-decoration:underline;}
-    #logout-btn{position:absolute;top:10px;right:12px;background:rgba(244,143,177,.12);border:1px solid rgba(244,143,177,.4);border-radius:14px;color:rgba(244,143,177,.9);font-size:9px;font-weight:700;padding:4px 10px;cursor:pointer;letter-spacing:1px;}
+    #auth-toggle{color:rgba(255,255,255,.5);font-size:13px;cursor:pointer;text-decoration:underline;}
+    #logout-btn{position:absolute;top:10px;right:12px;background:rgba(244,143,177,.12);border:1px solid rgba(244,143,177,.4);border-radius:14px;color:rgba(244,143,177,.9);font-size:11px;font-weight:700;padding:5px 12px;cursor:pointer;letter-spacing:1px;}
   </style>
 </head>
 <body>
 <div id="auth-screen">
-  <h2 style="font-size:20px;font-weight:900;letter-spacing:2px;background:linear-gradient(90deg,#F48FB1,#CE93D8,#F06292);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SPRITE CHECKLIST</h2>
+  <h2 style="font-size:23px;font-weight:900;letter-spacing:2px;background:linear-gradient(90deg,#F48FB1,#CE93D8,#F06292);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">SPRITE CHECKLIST</h2>
   <input id="auth-email" type="email" placeholder="Email" autocomplete="email" />
   <input id="auth-password" type="password" placeholder="Password" autocomplete="current-password" />
-  <div id="auth-error" style="color:#F06292;font-size:11px;min-height:14px;text-align:center;"></div>
+  <div id="auth-error" style="color:#F06292;font-size:13px;min-height:16px;text-align:center;"></div>
   <button id="auth-submit-btn" onclick="handleAuthSubmit()">Log In</button>
   <div id="auth-toggle" onclick="toggleAuthMode()">Need an account? Sign up</div>
 </div>
@@ -86,7 +86,7 @@
   <button id="logout-btn" onclick="handleLogout()">LOG OUT</button>
   <div style="display:flex;justify-content:center;margin-bottom:4px;position:relative;">
     <div id="season-select-wrapper" style="position:relative;display:inline-flex;align-items:center;background:rgba(244,143,177,.12);border:1px solid rgba(244,143,177,.4);border-radius:20px;padding:3px 20px 3px 12px;cursor:pointer;" onclick="toggleSeasonDropdown()">
-      <span id="season-select-label" style="color:rgba(244,143,177,.9);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;"></span>
+      <span id="season-select-label" style="color:rgba(244,143,177,.9);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;"></span>
       <span style="position:absolute;right:8px;color:rgba(244,143,177,.9);font-size:8px;pointer-events:none;">▾</span>
     </div>
     <div id="season-dropdown" style="display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:4px;background:#2d1b2e;border:1px solid rgba(244,143,177,.4);border-radius:12px;overflow:hidden;z-index:100;min-width:180px;box-shadow:0 8px 24px rgba(0,0,0,.5);">
@@ -100,7 +100,7 @@
     <span style="color:#F48FB1">(<span id="fp">0</span>%)</span>
     <span style="color:#CE93D8"><span id="rc">0</span> remaining</span>
   </div>
-  <div id="stats2" style="display:flex;justify-content:center;gap:6px;font-size:12px;margin-top:3px;">
+  <div id="stats2" style="display:flex;justify-content:center;gap:8px;font-size:14px;margin-top:3px;">
     <span style="color:#FFD700">&#128081; <span id="mc">0</span> mastered</span>
     <span style="color:#FFD700">(<span id="mp">0</span>%)</span>
     <span style="color:#d4a0c0">/</span>
@@ -110,18 +110,18 @@
   <div id="dust-wrap" style="display:flex;justify-content:center;margin-top:6px;">
     <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.06);border:1px solid rgba(244,143,177,.25);border-radius:20px;padding:1px 12px;">
       <img src="https://raw.githubusercontent.com/missashki-eng/Sprites/main/spritedust.webp" alt="Sprite Dust" style="width:14px;height:14px;object-fit:contain;" />
-      <input type="text" id="dust-input" inputmode="numeric" placeholder="0" style="width:82px;background:transparent;border:none;color:#F48FB1;font-size:11px;font-weight:700;outline:none;-webkit-appearance:none;text-align:right;" />
-      <span style="color:rgba(255,255,255,.5);font-size:10px;">Sprite Dust</span>
+      <input type="text" id="dust-input" inputmode="numeric" placeholder="0" style="width:92px;background:transparent;border:none;color:#F48FB1;font-size:14px;font-weight:700;outline:none;-webkit-appearance:none;text-align:right;" />
+      <span style="color:rgba(255,255,255,.5);font-size:12px;">Sprite Dust</span>
     </div>
   </div>
   <div id="search-wrap" style="padding:10px 40px 2px">
-    <input type="text" id="search-input" placeholder="&#128269; Search..." style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(244,143,177,.25);border-radius:20px;color:#fff;font-size:10px;padding:3px 12px;outline:none;-webkit-appearance:none;" />
+    <input type="text" id="search-input" placeholder="&#128269; Search..." style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(244,143,177,.25);border-radius:20px;color:#fff;font-size:13px;padding:6px 12px;outline:none;-webkit-appearance:none;" />
   </div>
   <div class="fr" id="rf"></div>
   <div style="height:1px;background:rgba(244,143,177,.4);margin:12px 30px;"></div>
   <div class="fr" id="vf"></div>
   <div class="fr" id="vf2"></div>
-  <div id="vbonus" style="display:none;text-align:center;font-size:10px;color:rgba(255,255,255,.55);padding:4px 12px 0;line-height:1.3;"></div>
+  <div id="vbonus" style="display:none;text-align:center;font-size:12px;color:rgba(255,255,255,.55);padding:4px 12px 0;line-height:1.3;"></div>
   <div style="height:1px;background:rgba(244,143,177,.4);margin:12px 30px;"></div>
   <div class="fr" id="sf"></div>
 </div>
@@ -706,7 +706,7 @@ function makeCard(s,rc){
   card.appendChild(lbl);
   if(s.drop&&activeSeason!=="ch7s4"){
     var dropEl=document.createElement("div");
-    dropEl.style.cssText="font-size:8px;color:rgba(255,255,255,.45);line-height:1;margin-top:1px;";
+    dropEl.style.cssText="font-size:10px;color:rgba(255,255,255,.45);line-height:1;margin-top:1px;";
     dropEl.textContent=s.drop;
     card.appendChild(dropEl);
   }
@@ -854,7 +854,7 @@ function populateSeasonSelect(){
       (function(k){
         var item=document.createElement("div");
         item.textContent="FORTNITE "+SEASONS[k].label.toUpperCase();
-        item.style.cssText="padding:10px 20px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:"+(k===activeSeason?"#F48FB1":"rgba(255,255,255,.6)")+";cursor:pointer;border-bottom:1px solid rgba(255,255,255,.06);";
+        item.style.cssText="padding:12px 22px;font-size:12px;font-weight:700;letter-spacing:1.5px;color:"+(k===activeSeason?"#F48FB1":"rgba(255,255,255,.6)")+";cursor:pointer;border-bottom:1px solid rgba(255,255,255,.06);";
         item.onmouseover=function(){this.style.background="rgba(244,143,177,.1)";};
         item.onmouseout=function(){this.style.background="transparent";};
         item.onclick=function(e){
@@ -957,7 +957,7 @@ supabaseClient.auth.onAuthStateChange(function(event,session){
 });
 </script>
 <button id="share-btn" onclick="generateShareImage()">📸 Sprites I Need</button>
-<div style="text-align:center;padding:20px 16px 60px;"><button onclick="recoverData()" style="background:rgba(244,143,177,.1);border:1px solid rgba(244,143,177,.3);border-radius:20px;color:rgba(244,143,177,.6);font-size:10px;font-weight:700;padding:6px 14px;cursor:pointer;">⚠️ Restore previous save data</button></div>
+<div style="text-align:center;padding:20px 16px 60px;"><button onclick="recoverData()" style="background:rgba(244,143,177,.1);border:1px solid rgba(244,143,177,.3);border-radius:20px;color:rgba(244,143,177,.6);font-size:12px;font-weight:700;padding:7px 16px;cursor:pointer;">⚠️ Restore previous save data</button></div>
 <canvas id="fireworks"></canvas>
 <div id="milestone-toast"></div>
 <div id="celebration">
