@@ -120,7 +120,7 @@
   <div id="pb"><div id="pf"></div></div>
   <div id="dust-wrap" style="display:flex;justify-content:center;margin-top:6px;">
     <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.06);border:1px solid rgba(244,143,177,.25);border-radius:20px;padding:1px 12px;">
-      <img src="https://raw.githubusercontent.com/missashki-eng/Sprites/main/spritedust.webp" alt="Sprite Dust" style="width:14px;height:14px;object-fit:contain;" />
+      <img src="images/spritedust.webp" alt="Sprite Dust" style="width:14px;height:14px;object-fit:contain;" />
       <input type="text" id="dust-input" inputmode="numeric" placeholder="0" style="width:92px;background:transparent;border:none;color:#F48FB1;font-size:14px;font-weight:700;outline:none;-webkit-appearance:none;text-align:right;" />
       <span style="color:rgba(255,255,255,.5);font-size:12px;">Sprite Dust</span>
     </div>
@@ -148,7 +148,7 @@ var supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KE
 var currentUser = null;
 var booted = false;
 
-var GH="https://raw.githubusercontent.com/missashki-eng/Sprites/main/";
+var GH="images/";
 var SPRITE_IMGS={
   "fire_base":        GH+"fire_base.webp",
   "fire_gold":        GH+"fire_gold.webp",
@@ -331,7 +331,7 @@ function buildAllSprites(){
   }
 }
 // Ch.7 S4 Data
-var GH_S4="https://raw.githubusercontent.com/missashki-eng/Sprites/main/";
+var GH_S4="images/";
 var SPRITE_IMGS_S4={
   "jackrabbit_base":    GH_S4+"jackrabbit_base.webp",
   "jackrabbit_gold":    GH_S4+"jackrabbit_gold.webp",
