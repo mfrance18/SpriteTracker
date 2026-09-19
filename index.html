@@ -51,6 +51,11 @@
     .ls::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);background:var(--thumb-color,#F48FB1);cursor:pointer}
     .lv{font-size:12px;font-weight:800;text-align:center;margin-top:1px}
     #share-btn{position:fixed;bottom:24px;right:16px;z-index:100;background:linear-gradient(135deg,#F48FB1,#CE93D8);border:none;border-radius:50px;color:#fff;font-size:14px;font-weight:800;padding:12px 20px;cursor:pointer;box-shadow:0 4px 20px rgba(244,143,177,.5);letter-spacing:.5px;}
+    #lobby-btn{display:none;position:fixed;bottom:84px;right:16px;z-index:100;background:linear-gradient(135deg,#F48FB1,#CE93D8);border:none;border-radius:50px;color:#fff;font-size:14px;font-weight:800;padding:12px 20px;cursor:pointer;box-shadow:0 4px 20px rgba(244,143,177,.5);letter-spacing:.5px;}
+    #lobby-overlay{display:none;position:fixed;inset:0;z-index:250;background:rgba(0,0,0,.85);align-items:flex-start;justify-content:center;overflow-y:auto;padding:32px 0;}
+    #lobby-overlay.active{display:flex;}
+    #lobby-box{background:#2d1b2e;border:1.5px solid rgba(244,143,177,.4);border-radius:20px;max-width:420px;width:88vw;padding:20px;}
+    #lobby-close{width:100%;margin-top:14px;background:rgba(244,143,177,.2);border:1.5px solid #F48FB1;border-radius:16px;color:#F48FB1;font-size:13px;font-weight:700;padding:10px;cursor:pointer;}
     #celebration{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.92);align-items:center;justify-content:center;flex-direction:column;gap:16px;text-align:center;padding:32px;}
     #celebration.active{display:flex;}
     #celebration h2{font-size:22px;font-weight:900;letter-spacing:1px;margin:0;line-height:1.3;}
@@ -137,13 +142,6 @@
   <div class="fr" id="sf"></div>
 </div>
 <div id="content"></div>
-<div id="lobby-section" style="display:none;padding:8px 12px 0;">
-  <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 14px;">
-    <span style="font-size:13px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#F48FB1;">⚡ Lobby Hacks</span>
-    <span style="font-size:12px;color:#d4a0c0;"><span id="lobby-fc">0</span>/<span id="lobby-tc">0</span></span>
-  </div>
-  <div id="lobby-content"></div>
-</div>
 <div id="ra"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -583,14 +581,11 @@ var lobbyCheckedArr=sg(LOBBY_KEY,[]);
 if(!Array.isArray(lobbyCheckedArr)){lobbyCheckedArr=[];}
 var lobbyChecked={};
 for(var _lci=0;_lci<lobbyCheckedArr.length;_lci++){lobbyChecked[lobbyCheckedArr[_lci]]=true;}
-var lobbyCodes=sg(LOBBY_KEY+"-codes",{});
-if(!lobbyCodes||typeof lobbyCodes!=="object"||Array.isArray(lobbyCodes)){lobbyCodes={};}
 function isLobbyChecked(name){return !!lobbyChecked[name];}
 function toggleLobbyCheck(name){if(lobbyChecked[name]){delete lobbyChecked[name];}else{lobbyChecked[name]=true;}saveLobby();}
-function saveLobby(){var arr=Object.keys(lobbyChecked);ss(LOBBY_KEY,arr);ss(LOBBY_KEY+"-codes",lobbyCodes);cloudSet(LOBBY_KEY,JSON.stringify(arr));cloudSet(LOBBY_KEY+"-codes",JSON.stringify(lobbyCodes));}
+function saveLobby(){var arr=Object.keys(lobbyChecked);ss(LOBBY_KEY,arr);cloudSet(LOBBY_KEY,JSON.stringify(arr));}
 function syncLobbyFromCloud(){
-  Promise.all([cloudGet(LOBBY_KEY),cloudGet(LOBBY_KEY+"-codes")]).then(function(res){
-    var remoteChecked=res[0],remoteCodes=res[1];
+  cloudGet(LOBBY_KEY).then(function(remoteChecked){
     if(remoteChecked!==null){
       try{
         var arr=JSON.parse(remoteChecked);
@@ -602,17 +597,6 @@ function syncLobbyFromCloud(){
     } else {
       var localArr=Object.keys(lobbyChecked);
       if(localArr.length)cloudSet(LOBBY_KEY,JSON.stringify(localArr));
-    }
-    if(remoteCodes!==null){
-      try{
-        var cd=JSON.parse(remoteCodes);
-        if(cd&&typeof cd==="object"&&!Array.isArray(cd)){
-          ss(LOBBY_KEY+"-codes",cd);
-          lobbyCodes=cd;
-        }
-      }catch(e){}
-    } else {
-      if(Object.keys(lobbyCodes).length)cloudSet(LOBBY_KEY+"-codes",JSON.stringify(lobbyCodes));
     }
     renderLobbyHacks();
   });
@@ -926,86 +910,55 @@ document.addEventListener("click",function(e){
   var dd=document.getElementById("season-dropdown");
   if(wrapper&&dd&&!wrapper.contains(e.target)&&!dd.contains(e.target))closeSeasonDropdown();
 });
-function makeLobbyRow(name,color){
+var LOBBY_HACKS_FLAT=(function(){
+  var out=[];
+  for(var gi=0;gi<LOBBY_HACKS_S4.length;gi++){
+    var g=LOBBY_HACKS_S4[gi];
+    for(var ii=0;ii<g.items.length;ii++)out.push(g.items[ii]);
+  }
+  out.sort();
+  return out;
+})();
+function makeLobbyRow(name){
   var row=document.createElement("div");
-  row.style.cssText="display:flex;flex-direction:column;gap:4px;padding:8px 10px;margin-bottom:6px;border-radius:10px;background:rgba(255,255,255,.04);border:1.5px solid "+(isLobbyChecked(name)?color+"99":"rgba(255,255,255,.1)")+";cursor:pointer;";
-  var top=document.createElement("div");
-  top.style.cssText="display:flex;align-items:center;justify-content:space-between;gap:8px;";
+  row.style.cssText="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;margin-bottom:6px;border-radius:10px;background:rgba(255,255,255,.04);border:1.5px solid "+(isLobbyChecked(name)?"#F48FB199":"rgba(255,255,255,.1)")+";cursor:pointer;";
   var lbl=document.createElement("span");
-  lbl.style.cssText="font-size:13px;font-weight:700;color:"+(isLobbyChecked(name)?color:"#fff")+";";
+  lbl.style.cssText="font-size:13px;font-weight:700;color:"+(isLobbyChecked(name)?"#F48FB1":"#fff")+";";
   lbl.textContent=name;
   var ck=document.createElement("span");
-  ck.style.cssText="color:"+color+";font-size:14px;font-weight:900;display:"+(isLobbyChecked(name)?"inline":"none")+";";
+  ck.style.cssText="color:#F48FB1;font-size:14px;font-weight:900;display:"+(isLobbyChecked(name)?"inline":"none")+";";
   ck.textContent="✓";
-  top.appendChild(lbl);top.appendChild(ck);
-  row.appendChild(top);
-  var codeWrap=document.createElement("div");
-  codeWrap.style.display=isLobbyChecked(name)?"block":"none";
-  codeWrap.onclick=function(e){e.stopPropagation();};
-  var codeInput=document.createElement("input");
-  codeInput.type="text";
-  codeInput.placeholder="Code found (optional)";
-  codeInput.value=lobbyCodes[name]||"";
-  codeInput.style.cssText="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;font-size:11px;padding:5px 8px;outline:none;-webkit-appearance:none;margin-top:2px;";
-  codeInput.oninput=function(){
-    if(this.value){lobbyCodes[name]=this.value;}else{delete lobbyCodes[name];}
-    saveLobby();
-  };
-  codeWrap.appendChild(codeInput);
-  row.appendChild(codeWrap);
+  row.appendChild(lbl);row.appendChild(ck);
   row.onclick=function(){
     toggleLobbyCheck(name);
     if(navigator.vibrate)navigator.vibrate(15);
-    row.style.borderColor=isLobbyChecked(name)?color+"99":"rgba(255,255,255,.1)";
-    lbl.style.color=isLobbyChecked(name)?color:"#fff";
+    row.style.borderColor=isLobbyChecked(name)?"#F48FB199":"rgba(255,255,255,.1)";
+    lbl.style.color=isLobbyChecked(name)?"#F48FB1":"#fff";
     ck.style.display=isLobbyChecked(name)?"inline":"none";
-    codeWrap.style.display=isLobbyChecked(name)?"block":"none";
     updateLobbyStats();
   };
   return row;
 }
 function updateLobbyStats(){
-  var totalItems=0,foundItems=0;
-  for(var gi=0;gi<LOBBY_HACKS_S4.length;gi++){
-    var group=LOBBY_HACKS_S4[gi];
-    totalItems+=group.items.length;
-    for(var ii=0;ii<group.items.length;ii++){if(isLobbyChecked(group.items[ii]))foundItems++;}
-  }
+  var foundItems=0;
+  for(var i=0;i<LOBBY_HACKS_FLAT.length;i++){if(isLobbyChecked(LOBBY_HACKS_FLAT[i]))foundItems++;}
   var fcEl=document.getElementById("lobby-fc"),tcEl=document.getElementById("lobby-tc");
   if(fcEl)fcEl.textContent=foundItems;
-  if(tcEl)tcEl.textContent=totalItems;
+  if(tcEl)tcEl.textContent=LOBBY_HACKS_FLAT.length;
 }
 function renderLobbyHacks(){
-  var section=document.getElementById("lobby-section");
-  if(!section)return;
-  if(activeSeason!=="ch7s4"){section.style.display="none";return;}
-  section.style.display="block";
+  var btn=document.getElementById("lobby-btn");
+  if(!btn)return;
+  btn.style.display=activeSeason==="ch7s4"?"block":"none";
   updateLobbyStats();
   var content=document.getElementById("lobby-content");
   content.innerHTML="";
-  for(var gi=0;gi<LOBBY_HACKS_S4.length;gi++){
-    var group=LOBBY_HACKS_S4[gi];
-    var gFound=0;
-    for(var ii=0;ii<group.items.length;ii++){if(isLobbyChecked(group.items[ii]))gFound++;}
-    var sec=document.createElement("div");
-    sec.style.marginBottom="20px";
-    var hdr=document.createElement("div");
-    hdr.className="rh";
-    hdr.style.borderBottom="1px solid "+group.color+"44";
-    var rl=document.createElement("span");
-    rl.className="rl";
-    rl.style.color=group.color;
-    rl.textContent=group.category.toUpperCase();
-    var cnt=document.createElement("span");
-    cnt.style.fontSize="11px";cnt.style.color="#888";
-    cnt.textContent=gFound+"/"+group.items.length;
-    hdr.appendChild(rl);hdr.appendChild(cnt);sec.appendChild(hdr);
-    for(var ii=0;ii<group.items.length;ii++){
-      sec.appendChild(makeLobbyRow(group.items[ii],group.color));
-    }
-    content.appendChild(sec);
+  for(var i=0;i<LOBBY_HACKS_FLAT.length;i++){
+    content.appendChild(makeLobbyRow(LOBBY_HACKS_FLAT[i]));
   }
 }
+function openLobbyOverlay(){document.getElementById("lobby-overlay").classList.add("active");}
+function closeLobbyOverlay(){document.getElementById("lobby-overlay").classList.remove("active");}
 function populateSeasonSelect(){
   var sel=document.getElementById("season-select");
   var label=document.getElementById("season-select-label");
@@ -1128,6 +1081,17 @@ supabaseClient.auth.onAuthStateChange(function(event,session){
 });
 </script>
 <button id="share-btn" onclick="generateShareImage()">📸 Sprites I Need</button>
+<button id="lobby-btn" onclick="openLobbyOverlay()">⚡ Lobby Hacks</button>
+<div id="lobby-overlay" onclick="if(event.target===this)closeLobbyOverlay()">
+  <div id="lobby-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <span style="font-size:15px;font-weight:900;letter-spacing:1px;color:#F48FB1;">⚡ LOBBY HACKS</span>
+      <span style="font-size:12px;color:#d4a0c0;"><span id="lobby-fc">0</span>/<span id="lobby-tc">0</span></span>
+    </div>
+    <div id="lobby-content"></div>
+    <button id="lobby-close" onclick="closeLobbyOverlay()">Close</button>
+  </div>
+</div>
 <div style="text-align:center;padding:20px 16px 60px;"><button onclick="recoverData()" style="background:rgba(244,143,177,.1);border:1px solid rgba(244,143,177,.3);border-radius:20px;color:rgba(244,143,177,.6);font-size:12px;font-weight:700;padding:7px 16px;cursor:pointer;">⚠️ Restore previous save data</button></div>
 <canvas id="fireworks"></canvas>
 <div id="milestone-toast"></div>
