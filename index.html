@@ -137,6 +137,13 @@
   <div class="fr" id="sf"></div>
 </div>
 <div id="content"></div>
+<div id="lobby-section" style="display:none;padding:8px 12px 0;">
+  <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 14px;">
+    <span style="font-size:13px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#F48FB1;">⚡ Lobby Hacks</span>
+    <span style="font-size:12px;color:#d4a0c0;"><span id="lobby-fc">0</span>/<span id="lobby-tc">0</span></span>
+  </div>
+  <div id="lobby-content"></div>
+</div>
 <div id="ra"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -437,6 +444,20 @@ var VARIANTS_S4=[
   { key: "bountyhunter", label: "Bounty Hunter", icon: "◎", color: "#FF7043", bonus: "Chance to find sprites when eliminating opponents. Only gains sprite XP from eliminations, unless sprite has special XP rules.", holofoilOnly: ["crown"], drop: {} },
 ];
 
+var LOBBY_HACKS_S4=[
+  { category: "8-Bit Crew",             color: "#69F0AE", items: ["8BitBlast","Born2Play","GatherAndCraft","GottaGoFast","IWannaFlyHigh","Play4All","JonesyIsGolden"] },
+  { category: "Sprite Potions",         color: "#CE93D8", items: ["Abgestaubt","Chispambo","DustInTheWind","H0p0nVC","Magilume","PerlimPinPin","WhereIsTheDustyTree"] },
+  { category: "World Art",              color: "#4FC3F7", items: ["BeMoreAlien","ReachYourImpossible","YourThoughtsAreMine"] },
+  { category: "Cheat Finders",          color: "#F06292", items: ["FindItChat","InvalidCheat","SurviveTheNight"] },
+  { category: "BRB",                    color: "#7986CB", items: ["BRB"] },
+  { category: "Extraction Balloon",     color: "#FFB74D", items: ["O2Override"] },
+  { category: "Block Party",            color: "#64B5F6", items: ["DontBlockMe","LetsBlockAndRoll"] },
+  { category: "Extraction Accelerators", color: "#C0CA33", items: ["BeamMeUp","ChatWhereDoYouFindTheKey","TakeYourHeart"] },
+  { category: "Garden",                 color: "#81C784", items: ["InsertCoinToContinue"] },
+  { category: "Snack Bar",              color: "#BCAAA4", items: ["PerfectOrder"] },
+  { category: "XP Boost",               color: "#FFD54F", items: ["XPOverride"] },
+];
+
 var activeSeason=(function(){var s=localStorage.getItem("active-season");return s?s:"ch7s3";})();
 var SEASONS={
   "ch7s3":{label:"Ch.7 S3"},
@@ -557,6 +578,45 @@ function isChecked(uid){return !!checkedSet[uid];}
 function toggleCheck(uid){if(checkedSet[uid]){delete checkedSet[uid];}else{checkedSet[uid]=true;}save();}
 function save(){var arr=Object.keys(checkedSet);ss(SK,arr);ss(SK+"-levels",levels);var _ck=seasonCloudKeys(activeSeason);cloudSet(_ck.checked,JSON.stringify(arr));cloudSet(_ck.levels,JSON.stringify(levels));}
 function getColor(r){return (RARITY[r]||{color:"#fff"}).color;}
+var LOBBY_KEY="lobby-hacks-ch7s4";
+var lobbyCheckedArr=sg(LOBBY_KEY,[]);
+if(!Array.isArray(lobbyCheckedArr)){lobbyCheckedArr=[];}
+var lobbyChecked={};
+for(var _lci=0;_lci<lobbyCheckedArr.length;_lci++){lobbyChecked[lobbyCheckedArr[_lci]]=true;}
+var lobbyCodes=sg(LOBBY_KEY+"-codes",{});
+if(!lobbyCodes||typeof lobbyCodes!=="object"||Array.isArray(lobbyCodes)){lobbyCodes={};}
+function isLobbyChecked(name){return !!lobbyChecked[name];}
+function toggleLobbyCheck(name){if(lobbyChecked[name]){delete lobbyChecked[name];}else{lobbyChecked[name]=true;}saveLobby();}
+function saveLobby(){var arr=Object.keys(lobbyChecked);ss(LOBBY_KEY,arr);ss(LOBBY_KEY+"-codes",lobbyCodes);cloudSet(LOBBY_KEY,JSON.stringify(arr));cloudSet(LOBBY_KEY+"-codes",JSON.stringify(lobbyCodes));}
+function syncLobbyFromCloud(){
+  Promise.all([cloudGet(LOBBY_KEY),cloudGet(LOBBY_KEY+"-codes")]).then(function(res){
+    var remoteChecked=res[0],remoteCodes=res[1];
+    if(remoteChecked!==null){
+      try{
+        var arr=JSON.parse(remoteChecked);
+        if(Array.isArray(arr)){
+          ss(LOBBY_KEY,arr);
+          lobbyChecked={};for(var i=0;i<arr.length;i++)lobbyChecked[arr[i]]=true;
+        }
+      }catch(e){}
+    } else {
+      var localArr=Object.keys(lobbyChecked);
+      if(localArr.length)cloudSet(LOBBY_KEY,JSON.stringify(localArr));
+    }
+    if(remoteCodes!==null){
+      try{
+        var cd=JSON.parse(remoteCodes);
+        if(cd&&typeof cd==="object"&&!Array.isArray(cd)){
+          ss(LOBBY_KEY+"-codes",cd);
+          lobbyCodes=cd;
+        }
+      }catch(e){}
+    } else {
+      if(Object.keys(lobbyCodes).length)cloudSet(LOBBY_KEY+"-codes",JSON.stringify(lobbyCodes));
+    }
+    renderLobbyHacks();
+  });
+}
 var _prevFound=0,_prevMastered=0,_hitMilestones={},_statsInitialized=false;
 var MILESTONES=[25,50,75];
 function showMilestoneToast(pct){
@@ -866,6 +926,86 @@ document.addEventListener("click",function(e){
   var dd=document.getElementById("season-dropdown");
   if(wrapper&&dd&&!wrapper.contains(e.target)&&!dd.contains(e.target))closeSeasonDropdown();
 });
+function makeLobbyRow(name,color){
+  var row=document.createElement("div");
+  row.style.cssText="display:flex;flex-direction:column;gap:4px;padding:8px 10px;margin-bottom:6px;border-radius:10px;background:rgba(255,255,255,.04);border:1.5px solid "+(isLobbyChecked(name)?color+"99":"rgba(255,255,255,.1)")+";cursor:pointer;";
+  var top=document.createElement("div");
+  top.style.cssText="display:flex;align-items:center;justify-content:space-between;gap:8px;";
+  var lbl=document.createElement("span");
+  lbl.style.cssText="font-size:13px;font-weight:700;color:"+(isLobbyChecked(name)?color:"#fff")+";";
+  lbl.textContent=name;
+  var ck=document.createElement("span");
+  ck.style.cssText="color:"+color+";font-size:14px;font-weight:900;display:"+(isLobbyChecked(name)?"inline":"none")+";";
+  ck.textContent="✓";
+  top.appendChild(lbl);top.appendChild(ck);
+  row.appendChild(top);
+  var codeWrap=document.createElement("div");
+  codeWrap.style.display=isLobbyChecked(name)?"block":"none";
+  codeWrap.onclick=function(e){e.stopPropagation();};
+  var codeInput=document.createElement("input");
+  codeInput.type="text";
+  codeInput.placeholder="Code found (optional)";
+  codeInput.value=lobbyCodes[name]||"";
+  codeInput.style.cssText="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;font-size:11px;padding:5px 8px;outline:none;-webkit-appearance:none;margin-top:2px;";
+  codeInput.oninput=function(){
+    if(this.value){lobbyCodes[name]=this.value;}else{delete lobbyCodes[name];}
+    saveLobby();
+  };
+  codeWrap.appendChild(codeInput);
+  row.appendChild(codeWrap);
+  row.onclick=function(){
+    toggleLobbyCheck(name);
+    if(navigator.vibrate)navigator.vibrate(15);
+    row.style.borderColor=isLobbyChecked(name)?color+"99":"rgba(255,255,255,.1)";
+    lbl.style.color=isLobbyChecked(name)?color:"#fff";
+    ck.style.display=isLobbyChecked(name)?"inline":"none";
+    codeWrap.style.display=isLobbyChecked(name)?"block":"none";
+    updateLobbyStats();
+  };
+  return row;
+}
+function updateLobbyStats(){
+  var totalItems=0,foundItems=0;
+  for(var gi=0;gi<LOBBY_HACKS_S4.length;gi++){
+    var group=LOBBY_HACKS_S4[gi];
+    totalItems+=group.items.length;
+    for(var ii=0;ii<group.items.length;ii++){if(isLobbyChecked(group.items[ii]))foundItems++;}
+  }
+  var fcEl=document.getElementById("lobby-fc"),tcEl=document.getElementById("lobby-tc");
+  if(fcEl)fcEl.textContent=foundItems;
+  if(tcEl)tcEl.textContent=totalItems;
+}
+function renderLobbyHacks(){
+  var section=document.getElementById("lobby-section");
+  if(!section)return;
+  if(activeSeason!=="ch7s4"){section.style.display="none";return;}
+  section.style.display="block";
+  updateLobbyStats();
+  var content=document.getElementById("lobby-content");
+  content.innerHTML="";
+  for(var gi=0;gi<LOBBY_HACKS_S4.length;gi++){
+    var group=LOBBY_HACKS_S4[gi];
+    var gFound=0;
+    for(var ii=0;ii<group.items.length;ii++){if(isLobbyChecked(group.items[ii]))gFound++;}
+    var sec=document.createElement("div");
+    sec.style.marginBottom="20px";
+    var hdr=document.createElement("div");
+    hdr.className="rh";
+    hdr.style.borderBottom="1px solid "+group.color+"44";
+    var rl=document.createElement("span");
+    rl.className="rl";
+    rl.style.color=group.color;
+    rl.textContent=group.category.toUpperCase();
+    var cnt=document.createElement("span");
+    cnt.style.fontSize="11px";cnt.style.color="#888";
+    cnt.textContent=gFound+"/"+group.items.length;
+    hdr.appendChild(rl);hdr.appendChild(cnt);sec.appendChild(hdr);
+    for(var ii=0;ii<group.items.length;ii++){
+      sec.appendChild(makeLobbyRow(group.items[ii],group.color));
+    }
+    content.appendChild(sec);
+  }
+}
 function populateSeasonSelect(){
   var sel=document.getElementById("season-select");
   var label=document.getElementById("season-select-label");
@@ -900,6 +1040,7 @@ function populateSeasonSelect(){
             rarityFilter="All";variantFilter="All";searchQuery="";
             document.getElementById("search-input").value="";
             populateSeasonSelect();render();
+            renderLobbyHacks();
           }
         };
         dd.appendChild(item);
@@ -932,6 +1073,8 @@ function boot(){
   initDustInput();
   for(var _sk in SEASONS){syncSeasonFromCloud(_sk,_sk===activeSeason);}
   syncDustFromCloud();
+  renderLobbyHacks();
+  syncLobbyFromCloud();
   try{render();}catch(e){
     var errDiv=document.createElement("div");
     errDiv.style.cssText="text-align:center;padding:40px 20px;color:#F48FB1;";
