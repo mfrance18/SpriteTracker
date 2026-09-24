@@ -893,7 +893,7 @@ function render(){
       var grid=document.createElement("div");
       grid.className="vg";
       for(var vi=0;vi<svariants.length;vi++){grid.appendChild(makeCard(svariants[vi],rc));}
-      if(svariants.length===1)grid.style.justifyContent="center";
+      if(sprite.noVariants)grid.style.justifyContent="center";
       ss2.appendChild(grid);
       sec.appendChild(ss2);
     }
