@@ -437,6 +437,11 @@ var SPRITE_IMGS_S4={
   "morgana_cheatmaster":    GH_S4+"morgana_cheatmaster.webp",
   "morgana_loothacker":     GH_S4+"morgana_loothacker.webp",
   "morgana_bountyhunter":   GH_S4+"morgana_bountyhunter.webp",
+  "birthday_base":          GH_S4+"birthday_base.webp",
+  "birthday_gold":          GH_S4+"birthday_gold.webp",
+  "birthday_cheatmaster":   GH_S4+"birthday_cheatmaster.webp",
+  "birthday_loothacker":    GH_S4+"birthday_loothacker.webp",
+  "birthday_bountyhunter":  GH_S4+"birthday_bountyhunter.webp",
 };
 var SPRITES_BASE_S4=[
   { id: "jackrabbit", name: "Jackrabbit Sprite",   rarity: "Legendary", color: "#FFD700", ability: "Grants the ability to perform another jump while mid-air! Cooldown between jumps decreases with each Level Up!", drop: "0.0%" },
@@ -459,13 +464,14 @@ var SPRITES_BASE_S4=[
   { id: "crashbandicoot", name: "Crash Bandicoot Sprite", rarity: "Legendary", color: "#FFD700", ability: "Triggers a whirlwind attack, damaging and knocking back nearby enemies. Damage increases and cooldown decreases with each Level Up!", drop: "0.0%" },
   { id: "pond",           name: "Pond Sprite",           rarity: "Epic",      color: "#CE93D8", ability: "Jump shortly after landing to trigger a Super Jump, if charges are present. Gain charges over time. Super jump strength increases and cooldown decreases with each Level Up!", drop: "0.0%" },
   { id: "morgana",        name: "Morgana Sprite",        rarity: "Epic",      color: "#CE93D8", ability: "Increases the effectiveness of healing items. Healing effectiveness increases with each Level Up!", drop: "0.0%" },
+  { id: "birthday",       name: "Birthday Sprite",       rarity: "Rare",      color: "#81D4FA", ability: "Opening chests has a chance to spawn a piece of cake. Eliminations can spawn cake at max level. Chance to spawn cake increases with each Level Up!", drop: "0.0%" },
 ];
 var VARIANTS_S4=[
   { key: "base",        label: "Base",        icon: "○", color: "#F48FB1", bonus: "",                                                                                                                        drop: {} },
   { key: "cheatmaster", label: "Cheat Master",icon: "✪",      color: "#69F0AE", bonus: "Button mash! All inputs are correct when entering cheat codes found in the world.",                                      drop: {} },
   { key: "gold",        label: "Gold",        icon: "★", color: "#FFD700", bonus: "Gain 3x bonus XP from eliminations.",                                                                                     drop: {} },
-  { key: "loothacker",  label: "Loot Hacker", icon: "◈",      color: "#00E5FF", bonus: "Increases chances of spawning items from your Loot Hacks.", holofoilOnly: ["crown","jonesy","adventure","bush","sonic","tails","shadow","8-bit","jackrabbit","killswitch","klombo","overshield","xray","onigiri","stormscout","blinky","crashbandicoot","pond","morgana"], drop: {} },
-  { key: "bountyhunter", label: "Bounty Hunter", icon: "◎", color: "#FF7043", bonus: "Chance to find sprites when eliminating opponents. Only gains sprite XP from eliminations, unless sprite has special XP rules.", holofoilOnly: ["crown","jonesy","adventure","bush","sonic","tails","shadow","8-bit","jackrabbit","killswitch","klombo","overshield","xray","onigiri","stormscout","blinky","crashbandicoot","pond","morgana"], drop: {} },
+  { key: "loothacker",  label: "Loot Hacker", icon: "◈",      color: "#00E5FF", bonus: "Increases chances of spawning items from your Loot Hacks.", holofoilOnly: ["crown","jonesy","adventure","bush","sonic","tails","shadow","8-bit","jackrabbit","killswitch","klombo","overshield","xray","onigiri","stormscout","blinky","crashbandicoot","pond","morgana","birthday"], drop: {} },
+  { key: "bountyhunter", label: "Bounty Hunter", icon: "◎", color: "#FF7043", bonus: "Chance to find sprites when eliminating opponents. Only gains sprite XP from eliminations, unless sprite has special XP rules.", holofoilOnly: ["crown","jonesy","adventure","bush","sonic","tails","shadow","8-bit","jackrabbit","killswitch","klombo","overshield","xray","onigiri","stormscout","blinky","crashbandicoot","pond","morgana","birthday"], drop: {} },
 ];
 
 var LOBBY_HACKS_S4=[
@@ -480,7 +486,7 @@ var LOBBY_HACKS_S4=[
   { category: "Garden",                 color: "#81C784", items: ["InsertCoinToContinue"] },
   { category: "Snack Bar",              color: "#BCAAA4", items: ["PerfectOrder"] },
   { category: "XP Boost",               color: "#FFD54F", items: ["XPOverride"] },
-  { category: "Misc",                   color: "#B39DDB", items: ["9YEARS","AlmostScaringSeason"] },
+  { category: "Misc",                   color: "#B39DDB", items: ["9YEARS","AlmostScaringSeason","WeAreTheWorldChampionsToday","DustySprites","WhoCrackedTheCode"] },
 ];
 
 var activeSeason=(function(){var s=localStorage.getItem("active-season");return s?s:"ch7s3";})();
