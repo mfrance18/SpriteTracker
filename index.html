@@ -558,10 +558,54 @@ var LOBBY_HACKS_S4=[
   { category: "Misc",                   color: "#B39DDB", items: ["9YEARS","AlmostScaringSeason","WeAreTheWorldChampionsToday","DustySprites","WhoCrackedTheCode","PUMPKINSPICELIFE","CROWSAREAFRAID","ITHINKTHEKEYFOUNDMECHAT","S7H-50P-R03","MagicIsReal","POWEROUT","DOOR2DOOR4CANDY","VeryScaryPumpkin"] },
 ];
 
+var SPRITE_IMGS_MS={
+  "halfpeeld_base":          GH_S4+"halfpeeld_base.webp",
+  "halfpeeld_fortune":       GH_S4+"halfpeeld_fortune.webp",
+  "repete_base":             GH_S4+"repete_base.webp",
+  "repete_fortune":          GH_S4+"repete_fortune.webp",
+  "barryofish_base":         GH_S4+"barryofish_base.webp",
+  "barryofish_fortune":      GH_S4+"barryofish_fortune.webp",
+  "chester_base":            GH_S4+"chester_base.webp",
+  "chester_fortune":         GH_S4+"chester_fortune.webp",
+  "exmarks_base":            GH_S4+"exmarks_base.webp",
+  "exmarks_fortune":         GH_S4+"exmarks_fortune.webp",
+  "wayfinder_base":          GH_S4+"wayfinder_base.webp",
+  "wayfinder_fortune":       GH_S4+"wayfinder_fortune.webp",
+  "kelper_base":             GH_S4+"kelper_base.webp",
+  "kelper_fortune":          GH_S4+"kelper_fortune.webp",
+  "sweetdreams_only":        GH_S4+"sweetdreams_only.webp",
+  "lilsquibbly_base":        GH_S4+"lilsquibbly_base.webp",
+  "lilsquibbly_fortune":     GH_S4+"lilsquibbly_fortune.webp",
+  "lilflacko_base":          GH_S4+"lilflacko_base.webp",
+  "lilflacko_fortune":       GH_S4+"lilflacko_fortune.webp",
+  "plundarrgh_base":         GH_S4+"plundarrgh_base.webp",
+  "plundarrgh_fortune":      GH_S4+"plubdarrgh_fortune.webp",
+  "transpondersnail_only":   GH_S4+"transpondersnail_only.webp",
+};
+var SPRITES_BASE_MS=[
+  { id: "halfpeeld",         name: "Halfpeel'd Sprite",         rarity: "Rare",      color: "#81D4FA", ability: "Marks eliminations on the map. Effect radius increases with each level up!", drop: "0.0%" },
+  { id: "repete",            name: "Re-Pete Sprite",            rarity: "Rare",      color: "#81D4FA", ability: "Increases reload speed, with a chance that reloading refunds ammo. Reload faster and higher chance of ammo refunds with each Level Up!", drop: "0.0%" },
+  { id: "barryofish",        name: "Barry O'Fish Sprite",       rarity: "Rare",      color: "#81D4FA", ability: "Reduces tactical sprint stamina drain when in water. Gain Slap at max level!", drop: "0.0%" },
+  { id: "chester",           name: "Chester Sprite",            rarity: "Epic",      color: "#CE93D8", ability: "Grants a chance to spawn extra loot from Treasure Chests and nullifies fall damage. Increased chance of spawning an extra loot item with each Level Up!", drop: "0.0%" },
+  { id: "exmarks",           name: "Exmarks Sprite",            rarity: "Epic",      color: "#CE93D8", ability: "Reveals Treasure Maps and Wanted Posters. Spawns a Treasure Map at Max Level!", drop: "0.0%" },
+  { id: "wayfinder",         name: "Wayfinder Sprite",          rarity: "Rare",      color: "#81D4FA", ability: "Reveals Sprites nearby and grants more items when opening Buried Chests. Sprite detection radius increases with each Level Up!", drop: "0.0%" },
+  { id: "kelper",            name: "Kelper Sprite",             rarity: "Epic",      color: "#CE93D8", ability: "Restores health over time when in water. Increased amount of health with each Level Up!", drop: "0.0%" },
+  { id: "sweetdreams",       name: "Sweet Dreams Sprite",       rarity: "Mythic",    color: "#78909C", ability: "Grants a random item at each level, exploding with Mythic loot at Max Level. Loot value increases at each Level Up!", noVariants: true, drop: "0.0%" },
+  { id: "lilsquibbly",       name: "Lil' Squibbly Sprite",      rarity: "Rare",      color: "#81D4FA", ability: "Jumping into a fishing hole fishes it and gives some bonus loot. Get more loot as you level up.", drop: "0.0%" },
+  { id: "lilflacko",         name: "Lil' Flacko Sprite",        rarity: "Legendary", color: "#FFD700", ability: "Creates a small shockwave on landing, knocking back enemies. Increased knockback strength with each Level Up!", drop: "0.0%" },
+  { id: "plundarrgh",        name: "Plundarrgh Sprite",         rarity: "Mythic",    color: "#78909C", ability: "Opening Chest grants increased pickaxe speed and movement speed.", drop: "0.0%" },
+  { id: "transpondersnail",  name: "Transponder Snail Sprite",  rarity: "Legendary", color: "#FFD700", ability: "Grants extra resources on pickup, with Teammates who also have this Sprite equipped receiving some extra resources as well! Increased amount of resources received at each Level Up!", noVariants: true, drop: "0.0%" },
+];
+var VARIANTS_MS=[
+  { key: "base",    label: "Base",    icon: "○", color: "#F48FB1", bonus: "", drop: {} },
+  { key: "fortune", label: "Fortune", icon: "◇", color: "#4DD0E1", bonus: "Reveals nearby chests.", holofoilOnly: ["halfpeeld","repete","barryofish","chester","exmarks","wayfinder","kelper","lilsquibbly","lilflacko","plundarrgh"], drop: {} },
+];
+
 var activeSeason=(function(){var s=localStorage.getItem("active-season");return s?s:"ch7s3";})();
 var SEASONS={
   "ch7s3":{label:"Ch.7 S3"},
-  "ch7s4":{label:"Ch.7 S4"}
+  "ch7s4":{label:"Ch.7 S4"},
+  "ch7ms":{label:"Ch.7 Miniseason"}
 };
 var SK="fortnite-sprite-checklist-v4-"+activeSeason;
 // Migrate old save data to new season-aware key
@@ -878,7 +922,7 @@ function makeCard(s,rc){
   lbl.style.color=s.variantColor||bv.color;
   lbl.textContent=(s.variantIcon||bv.icon)+" "+(s.variantLabel||bv.label);
   card.appendChild(lbl);
-  if(s.drop&&activeSeason!=="ch7s4"){
+  if(s.drop&&activeSeason==="ch7s3"){
     var dropEl=document.createElement("div");
     dropEl.style.cssText="font-size:10px;color:rgba(255,255,255,.45);line-height:1;margin-top:1px;";
     dropEl.textContent=s.drop;
@@ -987,6 +1031,10 @@ function loadSeasonData(){
     SPRITE_IMGS=SPRITE_IMGS_S4;
     SPRITES_BASE=SPRITES_BASE_S4;
     VARIANTS=VARIANTS_S4;
+  } else if(activeSeason==="ch7ms"){
+    SPRITE_IMGS=SPRITE_IMGS_MS;
+    SPRITES_BASE=SPRITES_BASE_MS;
+    VARIANTS=VARIANTS_MS;
   } else {
     SPRITE_IMGS=SPRITE_IMGS_S3;
     SPRITES_BASE=SPRITES_BASE_S3;
