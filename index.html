@@ -861,7 +861,7 @@ function buildFilters(){
   var _limitedKeys=[];
   for(var _vi=0;_vi<VARIANTS.length;_vi++){
     var _vv=VARIANTS[_vi];
-    if(_vv.holofoilOnly){_limitedKeys.push(_vv.label);}
+    if(_vv.holofoilOnly&&activeSeason!=="ch7ms"){_limitedKeys.push(_vv.label);}
     else{makeVBtn(_vv.label, vfEl);}
   }
   for(var _li=0;_li<_limitedKeys.length;_li++) makeVBtn(_limitedKeys[_li], vf2El);
