@@ -593,6 +593,13 @@ var SPRITE_IMGS_MS={
   "liluzivertjr_base":       GH_S4+"liluzivertjr_base.webp",
   "liluzivertjr_fortune":    GH_S4+"liluzivertjr_fortune.webp",
   "liluzivertjr_cursed":     GH_S4+"liluzivertjr_cursed.webp",
+  "squiplash_base":          GH_S4+"squiplash_base.webp",
+  "squiplash_fortune":       GH_S4+"squiplash_fortune.webp",
+  "squiplash_cursed":        GH_S4+"squiplash_cursed.webp",
+  "minimiku_base":           GH_S4+"minimiku_base.webp",
+  "minimiku_fortune":        GH_S4+"minimiku_fortune.webp",
+  "minimiku_cursed":         GH_S4+"minimiku_cursed.webp",
+  "zee_only":                GH_S4+"zee_only.webp",
 };
 var SPRITES_BASE_MS=[
   { id: "halfpeeld",         name: "Halfpeel'd Sprite",         rarity: "Rare",      color: "#81D4FA", ability: "Marks eliminations on the map. Effect radius increases with each level up!", drop: "0.0%" },
@@ -608,11 +615,14 @@ var SPRITES_BASE_MS=[
   { id: "plundarrgh",        name: "Plundarrgh Sprite",         rarity: "Mythic",    color: "#78909C", ability: "Opening Chest grants increased pickaxe speed and movement speed.", drop: "0.0%" },
   { id: "transpondersnail",  name: "Transponder Snail Sprite",  rarity: "Legendary", color: "#FFD700", ability: "Grants extra resources on pickup, with Teammates who also have this Sprite equipped receiving some extra resources as well! Increased amount of resources received at each Level Up!", noVariants: true, drop: "0.0%" },
   { id: "liluzivertjr",      name: "Lil' Uzi Vert Jr. Sprite",  rarity: "Legendary", color: "#FFD700", ability: "Generates a Chug Splash effect when restoring shields. Decreased cooldown with each Level Up!", drop: "0.0%" },
+  { id: "squiplash",         name: "Squiplash Sprite",         rarity: "Epic",      color: "#CE93D8", ability: "Deploys a Healing Smoke Bomb at low health. Decreased cooldown and increased duration and healing with each Level Up!", drop: "0.0%" },
+  { id: "minimiku",          name: "Mini Miku Sprite",         rarity: "Mythic",    color: "#78909C", ability: "Grants a Friendship Bubble when emoting with other players. Decreased cooldown with each Level Up!", drop: "0.0%" },
+  { id: "zee",               name: "Zee Sprite",               rarity: "Mythic",    color: "#78909C", ability: "Grants regenerating Zero Point dash charges. Max charges increase and recharge time decrease with Level Up!", noVariants: true, drop: "0.0%" },
 ];
 var VARIANTS_MS=[
   { key: "base",    label: "Base",    icon: "○", color: "#F48FB1", bonus: "", drop: {} },
-  { key: "fortune", label: "Fortune", icon: "◇", color: "#E53935", bonus: "Reveals nearby chests.", holofoilOnly: ["halfpeeld","repete","barryofish","chester","exmarks","wayfinder","kelper","lilsquibbly","lilflacko","plundarrgh","liluzivertjr"], drop: {} },
-  { key: "cursed", label: "Cursed", icon: "☠", color: "#9C27B0", bonus: "Increased chance of finding rare Sprites, take damage in water.", holofoilOnly: ["halfpeeld","repete","barryofish","wayfinder","chester","exmarks","lilsquibbly","lilflacko","plundarrgh","liluzivertjr"], drop: {} },
+  { key: "fortune", label: "Fortune", icon: "◇", color: "#E53935", bonus: "Reveals nearby chests.", holofoilOnly: ["halfpeeld","repete","barryofish","chester","exmarks","wayfinder","kelper","lilsquibbly","lilflacko","plundarrgh","liluzivertjr","squiplash","minimiku"], drop: {} },
+  { key: "cursed", label: "Cursed", icon: "☠", color: "#9C27B0", bonus: "Increased chance of finding rare Sprites, take damage in water.", holofoilOnly: ["halfpeeld","repete","barryofish","wayfinder","chester","exmarks","lilsquibbly","lilflacko","plundarrgh","liluzivertjr","squiplash","minimiku"], drop: {} },
 ];
 
 var activeSeason=(function(){var s=localStorage.getItem("active-season");return s?s:"ch7s3";})();
