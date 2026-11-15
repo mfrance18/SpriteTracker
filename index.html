@@ -61,7 +61,7 @@
     #lobby-overlay.active{display:flex;}
     #lobby-box{background:var(--bg1);border:1.5px solid rgba(var(--accent1-rgb),.4);border-radius:20px;max-width:420px;width:88vw;padding:20px;}
     #lobby-close{width:100%;margin-top:14px;background:rgba(var(--accent1-rgb),.2);border:1.5px solid var(--accent1);border-radius:16px;color:var(--accent1);font-size:13px;font-weight:700;padding:10px;cursor:pointer;}
-    #theme-btn{position:absolute;top:10px;left:12px;background:rgba(var(--accent1-rgb),.12);border:1px solid rgba(var(--accent1-rgb),.4);border-radius:14px;color:rgba(var(--accent1-rgb),.9);font-size:11px;font-weight:700;padding:5px 12px;cursor:pointer;letter-spacing:.5px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    #theme-btn{position:absolute;top:10px;left:12px;background:rgba(var(--accent1-rgb),.12);border:1px solid rgba(var(--accent1-rgb),.4);border-radius:14px;color:rgba(var(--accent1-rgb),.9);font-size:11px;font-weight:700;padding:5px 12px;cursor:pointer;letter-spacing:1px;white-space:nowrap;}
     #theme-overlay{display:none;position:fixed;inset:0;z-index:260;background:rgba(0,0,0,.85);align-items:flex-start;justify-content:center;overflow-y:auto;padding:32px 0;}
     #theme-overlay.active{display:flex;}
     #theme-box{background:var(--bg1);border:1.5px solid rgba(var(--accent1-rgb),.4);border-radius:20px;max-width:360px;width:88vw;padding:20px;}
@@ -113,7 +113,7 @@
 <div id="app">
 <div id="hdr">
   <button id="logout-btn" onclick="handleLogout()">LOG OUT</button>
-  <button id="theme-btn" onclick="openThemeOverlay()">🎨 Dreamy Pink</button>
+  <button id="theme-btn" onclick="openThemeOverlay()">🎨 Theme</button>
   <div style="display:flex;justify-content:center;margin-bottom:4px;position:relative;">
     <div id="season-select-wrapper" style="position:relative;display:inline-flex;align-items:center;background:rgba(var(--accent1-rgb),.12);border:1px solid rgba(var(--accent1-rgb),.4);border-radius:20px;padding:3px 20px 3px 12px;cursor:pointer;" onclick="toggleSeasonDropdown()">
       <span id="season-select-label" style="color:rgba(var(--accent1-rgb),.9);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;"></span>
@@ -820,8 +820,6 @@ function pushThemeVars(){
   root.setProperty("--headerbg",CURRENT_THEME.headerbg);
   var metaTag=document.getElementById("theme-color-meta");
   if(metaTag)metaTag.setAttribute("content",CURRENT_THEME.bg1);
-  var themeBtn=document.getElementById("theme-btn");
-  if(themeBtn)themeBtn.textContent="🎨 "+CURRENT_THEME.name;
 }
 pushThemeVars();
 function applyTheme(themeName,skipSave){
