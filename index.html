@@ -114,7 +114,7 @@
 <div id="hdr">
   <button id="logout-btn" onclick="handleLogout()">LOG OUT</button>
   <button id="theme-btn" onclick="openThemeOverlay()">🎨 Theme</button>
-  <div style="display:flex;justify-content:center;margin-bottom:4px;position:relative;">
+  <div style="display:flex;justify-content:center;margin-bottom:4px;">
     <div id="season-select-wrapper" style="position:relative;display:inline-flex;align-items:center;background:rgba(var(--accent1-rgb),.12);border:1px solid rgba(var(--accent1-rgb),.4);border-radius:20px;padding:3px 20px 3px 12px;cursor:pointer;" onclick="toggleSeasonDropdown()">
       <span id="season-select-label" style="color:rgba(var(--accent1-rgb),.9);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;"></span>
       <span style="position:absolute;right:8px;color:rgba(var(--accent1-rgb),.9);font-size:8px;pointer-events:none;">▾</span>
@@ -999,7 +999,7 @@ function makeLevelRow(uid,rc,crown){
   slider.style.setProperty("--thumb-color",rc);
   var lv=document.createElement("div");
   lv.className="lv";
-  lv.style.color=rc;
+  lv.style.color="var(--accent1)";
   lv.textContent="Level "+(levels[uid]||1);
   slider.oninput=function(e){
     e.stopPropagation();
@@ -1111,7 +1111,7 @@ function render(){
     hdr.style.borderBottom="1px solid "+rc+"44";
     var rl=document.createElement("span");
     rl.className="rl";
-    rl.style.color=rc;
+    rl.style.color="var(--accent1)";
     rl.textContent=rarity;
     var cnt=document.createElement("span");
     cnt.style.fontSize="11px";cnt.style.color="#888";
@@ -1131,7 +1131,7 @@ function render(){
       ss2.className="ss";
       var sn=document.createElement("div");
       sn.className="sn";
-      sn.style.color=rc;
+      sn.style.color="var(--accent1)";
       sn.innerHTML=sprite.name+'<span class="sa">'+sprite.ability+"</span>";
       ss2.appendChild(sn);
       var grid=document.createElement("div");
