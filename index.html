@@ -995,8 +995,8 @@ function makeLevelRow(uid,rc,crown){
   slider.max="5";
   slider.value=levels[uid]||1;
   slider.className="ls";
-  slider.style.background=buildSliderBg(slider.value,rc);
-  slider.style.setProperty("--thumb-color",rc);
+  slider.style.background=buildSliderBg(slider.value,"var(--accent1)");
+  slider.style.setProperty("--thumb-color","var(--accent1)");
   var lv=document.createElement("div");
   lv.className="lv";
   lv.style.color="var(--accent1)";
@@ -1005,7 +1005,7 @@ function makeLevelRow(uid,rc,crown){
     e.stopPropagation();
     levels[uid]=parseInt(this.value);
     save();
-    this.style.background=buildSliderBg(this.value,rc);
+    this.style.background=buildSliderBg(this.value,"var(--accent1)");
     lv.textContent="Level "+this.value;
     if(crown)crown.style.display=(parseInt(this.value)===5?"block":"none");
     updateStats();
@@ -1022,7 +1022,7 @@ function makeCard(s,rc){
   var isSpecial=s.variantKey==="gold"||s.variantKey==="gummy"||s.variantKey==="galaxy";
   var card=document.createElement("div");
   card.className="vc";
-  card.style.borderColor=isChecked(s.uid)?rc+"99":"rgba(255,255,255,.2)";
+  card.style.borderColor=isChecked(s.uid)?"rgba(var(--accent1-rgb),.6)":"rgba(255,255,255,.2)";
   if(isChecked(s.uid))card.style.background="rgba(var(--accent1-rgb),.15)";
   var ck=document.createElement("span");
   ck.className="ck";
@@ -1038,7 +1038,7 @@ function makeCard(s,rc){
   var bv=VARIANTS[0];
   var lbl=document.createElement("div");
   lbl.className="vl";
-  lbl.style.color=s.variantColor||bv.color;
+  lbl.style.color=s.variantKey==="base"?"var(--accent1)":(s.variantColor||bv.color);
   lbl.textContent=(s.variantIcon||bv.icon)+" "+(s.variantLabel||bv.label);
   card.appendChild(lbl);
   if(s.drop&&activeSeason==="ch7s3"){
@@ -1063,7 +1063,7 @@ function makeCard(s,rc){
     updateStats();
     levelRow.style.display=isChecked(s.uid)?"flex":"none";
     crown.style.display=(isChecked(s.uid)&&levels[s.uid]===5)?"block":"none";
-    card.style.borderColor=isChecked(s.uid)?rc+"99":"rgba(255,255,255,.2)";
+    card.style.borderColor=isChecked(s.uid)?"rgba(var(--accent1-rgb),.6)":"rgba(255,255,255,.2)";
     card.style.background=isChecked(s.uid)?"rgba(var(--accent1-rgb),.15)":"rgba(255,255,255,.04)";
     ck.style.display=isChecked(s.uid)?"block":"none";
     var sliders=levelRow.querySelectorAll(".ls");
