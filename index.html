@@ -126,14 +126,14 @@
   <h2>Sprite Checklist &#10024;</h2>
   <div id="stats">
     <span style="color:var(--accent1)">&#10003; <span id="fc">0</span> found</span>
-    <span style="color:#d4a0c0">/ <span id="tc">0</span> total</span>
+    <span style="color:rgba(var(--accent1-rgb),.55)">/ <span id="tc">0</span> total</span>
     <span style="color:var(--accent1)">(<span id="fp">0</span>%)</span>
     <span style="color:var(--accent2)"><span id="rc">0</span> remaining</span>
   </div>
   <div id="stats2" style="display:flex;justify-content:center;gap:8px;font-size:14px;margin-top:3px;">
     <span style="color:#FFD700">&#128081; <span id="mc">0</span> mastered</span>
     <span style="color:#FFD700">(<span id="mp">0</span>%)</span>
-    <span style="color:#d4a0c0">/</span>
+    <span style="color:rgba(var(--accent1-rgb),.55)">/</span>
     <span style="color:var(--accent2)"><span id="mr">0</span> remaining</span>
   </div>
   <div id="pb"><div id="pf"></div></div>
@@ -1350,7 +1350,7 @@ supabaseClient.auth.onAuthStateChange(function(event,session){
   <div id="lobby-box">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
       <span style="font-size:15px;font-weight:900;letter-spacing:1px;color:var(--accent1);">⚡ LOBBY HACKS</span>
-      <span style="font-size:12px;color:#d4a0c0;"><span id="lobby-fc">0</span>/<span id="lobby-tc">0</span></span>
+      <span style="font-size:12px;color:rgba(var(--accent1-rgb),.55);"><span id="lobby-fc">0</span>/<span id="lobby-tc">0</span></span>
     </div>
     <div id="lobby-content"></div>
     <button id="lobby-close" onclick="closeLobbyOverlay()">Close</button>
