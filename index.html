@@ -612,6 +612,23 @@ var SPRITE_IMGS_MS={
   "minimiku_fortune":        GH_S4+"minimiku_fortune.webp",
   "minimiku_cursed":         GH_S4+"minimiku_cursed.webp",
   "zee_only":                GH_S4+"zee_only.webp",
+  "siroscarthesecond_base":    GH_S4+"siroscarthesecond_base.webp",
+  "siroscarthesecond_fortune": GH_S4+"siroscarthesecond_fortune.webp",
+  "siroscarthesecond_cursed":  GH_S4+"siroscarthesecond_cursed.webp",
+  "siroscarthesecond_gold":    GH_S4+"siroscarthesecond_gold.webp",
+  "halfpeeld_gold":          GH_S4+"halfpeeld_gold.webp",
+  "repete_gold":             GH_S4+"repete_gold.webp",
+  "barryofish_gold":         GH_S4+"barryofish_gold.webp",
+  "chester_gold":            GH_S4+"chester_gold.webp",
+  "exmarks_gold":            GH_S4+"exmarks_gold.webp",
+  "wayfinder_gold":          GH_S4+"wayfinder_gold.webp",
+  "kelper_gold":             GH_S4+"kelper_gold.webp",
+  "lilsquibbly_gold":        GH_S4+"lilsquibbly_gold.webp",
+  "lilflacko_gold":          GH_S4+"lilflacko_gold.webp",
+  "plundarrgh_gold":         GH_S4+"plundarrgh_gold.webp",
+  "liluzivertjr_gold":       GH_S4+"liluzivertjr_gold.webp",
+  "squiplash_gold":          GH_S4+"squiplash_gold.webp",
+  "minimiku_gold":           GH_S4+"minimiku_gold.webp",
 };
 var SPRITES_BASE_MS=[
   { id: "halfpeeld",         name: "Halfpeel'd Sprite",         rarity: "Rare",      color: "#81D4FA", ability: "Marks eliminations on the map. Effect radius increases with each level up!", drop: "0.0%" },
@@ -630,11 +647,13 @@ var SPRITES_BASE_MS=[
   { id: "squiplash",         name: "Squiplash Sprite",         rarity: "Epic",      color: "#CE93D8", ability: "Deploys a Healing Smoke Bomb at low health. Decreased cooldown and increased duration and healing with each Level Up!", drop: "0.0%" },
   { id: "minimiku",          name: "Mini Miku Sprite",         rarity: "Mythic",    color: "#78909C", ability: "Grants a Friendship Bubble when emoting with other players. Decreased cooldown with each Level Up!", drop: "0.0%" },
   { id: "zee",               name: "Zee Sprite",               rarity: "Mythic",    color: "#78909C", ability: "Grants regenerating Zero Point dash charges. Max charges increase and recharge time decrease with Level Up!", noVariants: true, drop: "0.0%" },
+  { id: "siroscarthesecond", name: "Sir Oscar the Second Sprite", rarity: "Legendary", color: "#FFD700", ability: "Grants increased Pickaxe damage, also gives a temporary speed boost when your Shield breaks. Increased Pickaxe damage and speed boost with each Level Up!", drop: "0.0%" },
 ];
 var VARIANTS_MS=[
   { key: "base",    label: "Base",    icon: "○", color: "#F48FB1", bonus: "", drop: {} },
-  { key: "fortune", label: "Fortune", icon: "◇", color: "#E53935", bonus: "Reveals nearby chests.", holofoilOnly: ["halfpeeld","repete","barryofish","chester","exmarks","wayfinder","kelper","lilsquibbly","lilflacko","plundarrgh","liluzivertjr","squiplash","minimiku"], drop: {} },
-  { key: "cursed", label: "Cursed", icon: "☠", color: "#9C27B0", bonus: "Increased chance of finding rare Sprites, take damage in water.", holofoilOnly: ["halfpeeld","repete","barryofish","wayfinder","chester","exmarks","lilsquibbly","lilflacko","plundarrgh","liluzivertjr","squiplash","minimiku","kelper"], drop: {} },
+  { key: "fortune", label: "Fortune", icon: "◇", color: "#E53935", bonus: "Reveals nearby chests.", holofoilOnly: ["halfpeeld","repete","barryofish","chester","exmarks","wayfinder","kelper","lilsquibbly","lilflacko","plundarrgh","liluzivertjr","squiplash","minimiku","siroscarthesecond"], drop: {} },
+  { key: "cursed", label: "Cursed", icon: "☠", color: "#9C27B0", bonus: "Increased chance of finding rare Sprites, take damage in water.", holofoilOnly: ["halfpeeld","repete","barryofish","wayfinder","chester","exmarks","lilsquibbly","lilflacko","plundarrgh","liluzivertjr","squiplash","minimiku","kelper","siroscarthesecond"], drop: {} },
+  { key: "gold", label: "Gold", icon: "★", color: "#FFD700", bonus: "+XP per elimination.", drop: {} },
 ];
 
 var activeSeason=(function(){var s=localStorage.getItem("active-season");return s?s:"ch7s3";})();
